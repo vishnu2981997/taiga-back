@@ -31,14 +31,14 @@ DEBUG = False
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django_prometheus.db.backends.postgresql",
         "NAME": "taiga",
     }
 }
 
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "BACKEND": "django_prometheus.cache.backends.locmem.LocMemCache",
         "LOCATION": "unique-snowflake"
     }
 }
@@ -260,6 +260,8 @@ TEMPLATES = [
 
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+
     "taiga.base.middleware.cors.CorsMiddleware",
     "taiga.events.middleware.SessionIDMiddleware",
 
@@ -271,6 +273,8 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 
@@ -329,6 +333,7 @@ INSTALLED_APPS = [
     "sr",
     "easy_thumbnails",
     "raven.contrib.django.raven_compat",
+    "django_prometheus",
 ]
 
 WSGI_APPLICATION = "taiga.wsgi.application"

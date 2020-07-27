@@ -30,8 +30,9 @@ from .routers import router
 ##############################################
 
 urlpatterns = [
-    path('api/v1/', include(router.urls)),
-    path('admin/', admin.site.urls),
+    path("api/v1/", include(router.urls)),
+    path("admin/", admin.site.urls),
+    url("", include("django_prometheus.urls")),
 ]
 
 handler500 = "taiga.base.api.views.api_server_error"
